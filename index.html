@@ -1,0 +1,47 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>JestTest</title>
+  <style>
+  .hidden {display: none}
+  .error {color: red}
+  .error-box {border: 1px solid red}
+  </style>
+</head>
+<body>
+  <p class="error error-box hidden" id="err">Please fill in the required fields</p>
+  <form onsubmit="return validateSubmit(this)" method="post" action="/cgi-bin/perlbaby.pl">
+    <ul>
+      <li><label id="username-label" for="username">Username</label>
+          <input id="username"></li>
+      <li><label id="password-label" for="password">Password</label>
+          <input id="password"></li>
+    </ul>
+    <button type="submit" id="button">go</button>
+  </form>
+  <script>
+    /* A simple function to validata form on form submit,
+    if any error , show the error message */
+    function validateSubmit(f) {
+      var validates = true;
+      ['username', 'password'].forEach(function(field) {
+        if (!document.getElementById(field).value) {
+          validates = false;
+          document.getElementById(field + '-label').className = 'error';
+        } else {
+          document.getElementById(field + '-label').className = '';
+        }
+      });
+      document.getElementById('err').className = validates
+        ? 'hidden' 
+        : 'error error-box';
+
+      if (validates) {
+        // fancy stuff goeth here
+      }
+
+      return false;
+    }
+  </script>
+</body>
+</html>
